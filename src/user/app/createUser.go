@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// TODO create element bcrypt function for passwords
 func CreateUser(user models.User, collection *mongo.Collection) (map[string]string, bool) {
 
 	id := uuid.New()
@@ -47,7 +48,7 @@ func UserId(name string, lastname string, coll *mongo.Collection) string {
 	userId := name + "." + lastname
 
 	for i := 0; i != -2; i++ {
-		_, truth := GetUser(userId, "userId", coll)
+		_, truth := GetUser(userId, "userId", coll, nil)
 		if !truth {
 			return userId
 		}

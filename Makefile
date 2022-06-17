@@ -6,8 +6,5 @@ main: $(FILE)
 	go build -o $(BINARY) $(FILE)
 	bash ./scripts/env.sh
 
-clear:
-	sudo rm -rf ./uploads/**
-
 test: $(FILE)
 	go test

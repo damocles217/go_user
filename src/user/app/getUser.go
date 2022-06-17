@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func GetUser(filterId string, filterType string, collection *mongo.Collection, opts *options.FindOneOptions) (map[string]any, bool) {
+func GetUser(filterId any, filterType string, collection *mongo.Collection, opts *options.FindOneOptions) (map[string]any, bool) {
 	var user models.User
 	// Translate the struct values to map
 	var inInterface map[string]interface{}

@@ -8,9 +8,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func GetUser(filterId string, filterType string, collection *mongo.Collection) (map[string]any, bool) {
+func GetUser(filterId string, filterType string, collection *mongo.Collection, opts *options.FindOneOptions) (map[string]any, bool) {
 	var user models.User
 	// Translate the struct values to map
 	var inInterface map[string]interface{}
@@ -22,7 +23,7 @@ func GetUser(filterId string, filterType string, collection *mongo.Collection) (
 
 	filter := bson.D{primitive.E{Key: filterType, Value: filterId}}
 
-	err := collection.FindOne(context.TODO(), filter).Decode(&user)
+	err := collection.FindOne(context.TODO(), filter, opts).Decode(&user)
 
 	if err != nil {
 		return map[string]interface{}{

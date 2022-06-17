@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/damocles217/user_service/src/user/api/config"
 	"github.com/damocles217/user_service/src/user/app"
 	"github.com/damocles217/user_service/src/user/core/models"
 	"github.com/gin-gonic/gin"
@@ -28,12 +29,14 @@ func CreateUser(collection *mongo.Collection) gin.HandlerFunc {
 			return
 		}
 
+		password, _ := config.HashPassword(user.Password)
+
 		// Setting the values for being correctly saved
 		userForCreating := models.User{
 			Name:      user.Name,
 			Lastname:  user.Lastname,
 			Email:     user.Email,
-			Password:  user.Password,
+			Password:  password,
 			Gender:    user.Gender,
 			CreatedAt: time.Now(),
 			Admin:     0,

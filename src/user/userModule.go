@@ -21,8 +21,10 @@ func CreateServer() *gin.Engine {
 		user.GET("/getme", controllers.GetMyUser(collection))
 		user.GET("/getfull/:page", controllers.GetUsers(collection))
 		user.GET("/test/", controllers.TestRequest)
+		user.GET("/logout", controllers.Logout)
 
 		user.POST("/", controllers.CreateUser(collection))
+		user.POST("/login", controllers.Login(collection))
 	}
 
 	return r

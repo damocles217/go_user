@@ -11,7 +11,7 @@ import (
 )
 
 // TODO create element bcrypt function for passwords
-func CreateUser(user models.User, collection *mongo.Collection) (map[string]string, bool) {
+func CreateUser(user models.User, collection *mongo.Collection) (map[string]any, bool) {
 
 	id := uuid.New()
 	userId := UserId(user.Name, user.Lastname, collection)
@@ -23,7 +23,7 @@ func CreateUser(user models.User, collection *mongo.Collection) (map[string]stri
 
 	if err != nil {
 		println(err.Error())
-		return map[string]string{
+		return map[string]any{
 			"message": "Not null",
 		}, false
 	}
@@ -31,7 +31,7 @@ func CreateUser(user models.User, collection *mongo.Collection) (map[string]stri
 	oid, ok := newUserId.InsertedID.(primitive.ObjectID)
 
 	if ok {
-		return map[string]string{
+		return map[string]any{
 				// ID to string
 				"_id":       oid.Hex(),
 				"code_auth": user.CodeAuth,
@@ -39,7 +39,7 @@ func CreateUser(user models.User, collection *mongo.Collection) (map[string]stri
 			true
 	}
 
-	return map[string]string{
+	return map[string]any{
 		"message": "User cannon be saved",
 	}, false
 }

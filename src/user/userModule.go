@@ -29,7 +29,7 @@ func CreateServer() *gin.Engine {
 
 		// TODO Make this functions for the routes
 		user.PUT("/update", guards.AuthGuard(collection), controllers.UpdateUser(collection))
-		user.DELETE("/delete")
+		user.DELETE("/delete", guards.AuthGuard(collection), controllers.DeleteUser(collection))
 	}
 
 	return r

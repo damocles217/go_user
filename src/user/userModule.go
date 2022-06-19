@@ -25,6 +25,10 @@ func CreateServer() *gin.Engine {
 
 		user.POST("/", controllers.CreateUser(collection))
 		user.POST("/login", controllers.Login(collection))
+
+		// TODO Make this functions for the routes
+		user.PUT("/update")
+		user.DELETE("/delete")
 	}
 
 	return r

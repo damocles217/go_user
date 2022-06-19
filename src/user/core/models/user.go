@@ -29,3 +29,8 @@ type UserCreate struct {
 	ConfirmPassword string `json:"confirm_password,omitempty"`
 	Gender          int    `bson:"gender,omitempty" json:"gender,omitempty"`
 }
+
+type UserLogin struct {
+	Email    string `bson:"email,omitempty" json:"email,omitempty"`
+	Password string `bson:"password,omitempty" json:"password,omitempty"`
+}

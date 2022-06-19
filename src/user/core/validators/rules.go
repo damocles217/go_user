@@ -9,7 +9,7 @@ func UserValidator() primitive.M {
 
 	jsonSchema := bson.M{
 		"bsonType": "object",
-		"required": []string{"email", "name", "lastname", "password", "gender", "userId"},
+		"required": []string{"email", "name", "lastname", "password", "userId"},
 		"properties": bson.M{
 			"name": bson.M{
 				"bsonType":    "string",

@@ -1,0 +1,42 @@
+package controllers
+
+import (
+	"net/http"
+
+	"github.com/damocles217/user_service/src/user/api/config"
+	"github.com/damocles217/user_service/src/user/app"
+	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/mongo"
+)
+
+func GetMyUser(collection *mongo.Collection) gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		token, err := c.Cookie("t_user")
+		cUser, err := c.Cookie("c_user")
+
+		if err != nil {
+			println("Error, cookie not found\n ", err.Error())
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "No credentials found",
+			})
+			return
+		}
+
+		idObj := config.GetUserId(token)
+
+		data, _ := app.GetUser(idObj, "_id", collection, nil)
+
+		cAuth := data["code_auth"]
+
+		if cUser == cAuth {
+			c.JSON(http.StatusOK, data)
+			return
+		}
+
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "This is not your profile",
+		})
+		return
+	}
+}

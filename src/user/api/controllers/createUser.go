@@ -37,6 +37,7 @@ func CreateUser(collection *mongo.Collection) gin.HandlerFunc {
 			Password:  password,
 			Gender:    user.Gender,
 			CreatedAt: time.Now(),
+			UrlPhoto:  "",
 			Admin:     0,
 		}
 		userForCreating.UpdatedAt = userForCreating.CreatedAt

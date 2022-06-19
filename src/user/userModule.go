@@ -28,7 +28,7 @@ func CreateServer() *gin.Engine {
 		user.POST("/login", controllers.Login(collection))
 
 		// TODO Make this functions for the routes
-		user.PUT("/update")
+		user.PUT("/update", guards.AuthGuard(collection), controllers.UpdateUser(collection))
 		user.DELETE("/delete")
 	}
 

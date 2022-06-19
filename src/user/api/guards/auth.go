@@ -1,4 +1,4 @@
-package controllers
+package guards
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetMyUser(collection *mongo.Collection) gin.HandlerFunc {
+func AuthGuard(collection *mongo.Collection) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		token, err := c.Cookie("t_user")
@@ -20,6 +20,7 @@ func GetMyUser(collection *mongo.Collection) gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"message": "No credentials found",
 			})
+			c.Abort()
 			return
 		}
 
@@ -30,13 +31,9 @@ func GetMyUser(collection *mongo.Collection) gin.HandlerFunc {
 		cAuth := data["code_auth"]
 
 		if cUser == cAuth {
-			c.JSON(http.StatusOK, data)
+			c.Next()
 			return
 		}
-
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "This is not your profile",
-		})
-		return
+		c.Abort()
 	}
 }

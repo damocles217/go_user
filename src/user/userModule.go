@@ -3,6 +3,7 @@ package user
 import (
 	"github.com/damocles217/user_service/src/middlewares"
 	"github.com/damocles217/user_service/src/user/api/controllers"
+	"github.com/damocles217/user_service/src/user/api/guards"
 	"github.com/damocles217/user_service/src/user/core/database"
 	"github.com/gin-gonic/gin"
 )
@@ -21,7 +22,7 @@ func CreateServer() *gin.Engine {
 		user.GET("/getme", controllers.GetMyUser(collection))
 		user.GET("/getfull/:page", controllers.GetUsers(collection))
 		user.GET("/test/", controllers.TestRequest)
-		user.GET("/logout", controllers.Logout)
+		user.GET("/logout", guards.AuthGuard(collection), controllers.Logout)
 
 		user.POST("/", controllers.CreateUser(collection))
 		user.POST("/login", controllers.Login(collection))

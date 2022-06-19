@@ -18,8 +18,8 @@ func CreateServer() *gin.Engine {
 	user := r.Group("/user")
 	{
 		user.GET("/get/:userId", controllers.GetUser(collection))
-		user.GET("/getme/", controllers.GetMyUser(collection))
-		user.GET("/get/")
+		user.GET("/getme", controllers.GetMyUser(collection))
+		user.GET("/getfull/:page", controllers.GetUsers(collection))
 		user.GET("/test/", controllers.TestRequest)
 
 		user.POST("/", controllers.CreateUser(collection))

@@ -7,4 +7,4 @@ main: $(FILE)
 	bash ./scripts/env.sh
 
 test: $(FILE)
-	go test
+	bash ./scripts/test.sh

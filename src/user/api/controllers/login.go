@@ -41,14 +41,15 @@ func Login(collection *mongo.Collection) gin.HandlerFunc {
 			c.SetCookie("t_user", tokenString, 3600*24*10, "/", "", false, true)
 			c.SetCookie("c_user", userLog["code_auth"].(string), 3600*300, "/", "", false, true)
 
-		} else {
-			println("Error in token", err.Error())
+			c.JSON(http.StatusOK, gin.H{
+				"success": true,
+			})
+			return
+
 		}
-		c.SetCookie("t_user", tokenString, 3600*24*10, "/", "", false, true)
-		c.SetCookie("c_user", userLog["code_auth"].(string), 3600*300, "/", "", false, true)
 
 		c.JSON(http.StatusOK, gin.H{
-			"success": true,
+			"success": false,
 		})
 		return
 	}

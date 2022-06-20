@@ -13,4 +13,3 @@ prod: $(FILE)
 	go mod download
 	go mod tidy
 	go build -o $(BINARY) $(FILE)
-	./server

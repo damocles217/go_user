@@ -8,3 +8,8 @@ main: $(FILE)
 
 test: $(FILE)
 	bash ./scripts/test.sh
+
+prod: $(FILE)
+	go mod download
+	go build -o $(BINARY) $(FILE)
+	./server

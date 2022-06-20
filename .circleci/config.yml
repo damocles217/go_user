@@ -1,0 +1,48 @@
+version: 2
+
+aliases:
+  - &docker
+    - image: cimg/go:1.16
+      auth:
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASSWORD
+
+jobs:
+  build:
+    docker: *docker
+    working_directory: ~/backend
+    parallelism: 2
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - go-mod-v4-{{ checksum "go.sum" }}
+      - run:
+          name: Install dependencies
+          command: |
+            make prod
+      - save_cache:
+          key: go-mod-v4-{{ checksum "go.sum" }}
+          paths:
+            - "/go/pkg/mod"
+
+  deploy:
+    docker: *docker
+    working_directory: ~/backend
+    steps:
+      - checkout
+      - run:
+          name: Setup Heroku
+          command: bash .circleci/setup-heroku.sh
+      - run:
+          name: Setting on heroku
+          command: git push heroku master
+
+workflows:
+  version: 2
+  ciworkflow:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build

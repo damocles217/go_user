@@ -6,7 +6,7 @@ echo "$ git config core.hooksPath scripts/.githooks"
 
 # Server statements
 export URL="192.168.1.65"
-export PORT=":5000"
+export PORT="5000"
 
 # Mongo uri
 export URI_MONGO="mongodb://localhost:27017/?readPreference=primary&directConnection=true&ssl=false"

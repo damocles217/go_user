@@ -12,5 +12,5 @@ func main() {
 	port := os.Getenv("PORT")
 	url := os.Getenv("URL")
 
-	server.Run(url + port)
+	server.Run(url + ":" + port)
 }

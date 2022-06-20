@@ -2,7 +2,7 @@ version: 2
 
 aliases:
   - &docker
-    - image: cimg/go:1.16
+    - image: cimg/go:1.18
       auth:
         username: $DOCKERHUB_USERNAME
         password: $DOCKERHUB_PASSWORD

@@ -12,6 +12,5 @@ test: $(FILE)
 prod: $(FILE)
 	go mod download
 	go mod tidy
-	go get -t .
 	go build -o $(BINARY) $(FILE)
 	./server

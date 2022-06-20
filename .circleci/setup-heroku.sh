@@ -11,4 +11,4 @@ machine git.heroku.com
   password $HEROKU_API_KEY
 EOF
 
-heroku git:remote -a $HEROKU_APP_NAME
+heroku git:clone -a $HEROKU_APP_NAME
